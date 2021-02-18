@@ -13,5 +13,3 @@ def get_trips_by_user(user):
             return []
     else:
         raise UserNotLoggedInException()
-
-
