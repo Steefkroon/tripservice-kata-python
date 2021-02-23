@@ -13,7 +13,7 @@ class TestGetTripsByUser(unittest.TestCase):
     ANOTHER_USER = User()
 
     def test_raise_exception_if_user_not_logged_in(self):
-        trip_service = TestableTripService().with_user_being(self.GUEST_USER).with_second_user_being(self.A_USER)
+        trip_service = TestableTripService().with_user_being(self.GUEST_USER)
         with self.assertRaises(UserNotLoggedInException):
             trip_service.get_trips_by_user(self.A_USER)
 
@@ -21,7 +21,6 @@ class TestGetTripsByUser(unittest.TestCase):
         trip_service = TestableTripService().with_user_being(self.A_USER)
         result = trip_service.get_trips_by_user(self.ANOTHER_USER)
         self.assertListEqual(result, [])
-
 
     def test_return_trips_if_users_are_friends(self):
         friend_one = User()
@@ -42,9 +41,5 @@ class TestableTripService(TripService):
         return user.trips
 
     def with_user_being(self, user):
-        self.logged_in_user = user
-        return self
-
-    def with_second_user_being(self, user):
         self.logged_in_user = user
         return self
